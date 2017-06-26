@@ -85,7 +85,7 @@ When working on this goal, you'll encounter questions like:
 - [X] `getUserById`
 - [X] `getToDosByUserId`
 - [X] `addUser`
-- [ ] `deleteUser`
+- [X] `deleteUser`
 
 #### Testing
 There are thorough tests for all functionality involved in interacting with the database.
@@ -93,7 +93,7 @@ There are thorough tests for all functionality involved in interacting with the 
 - [X] There are tests for deleting to do list items.
 - [X] There are tests for completing to do list items.
 - [X] There are tests for editing to do list items.
-- [ ] All tests are passing.
+- [X] All tests are passing.
 
 \* A quick and easy way to do this is to use the `alert()` function.
 
