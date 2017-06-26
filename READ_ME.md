@@ -76,12 +76,23 @@ When working on this goal, you'll encounter questions like:
 - [ ] Backend uses Node.js and [Express][npm-express].
 - [ ] App persists to do list items in a database.
 
+#### Database Functions
+- [X] `addToDos`
+- [X] `deleteToDoById`
+- [X] `completeToDoById`
+- [X] `uncompleteToDoById`
+- [X] `editToDoById`
+- [X] `getUserById`
+- [X] `getToDosByUserId`
+- [X] `addUser`
+- [ ] `deleteUser`
+
 #### Testing
 There are thorough tests for all functionality involved in interacting with the database.
-- [ ] There are tests for creating to do list items.
-- [ ] There are tests for deleting to do list items.
-- [ ] There are tests for completing to do list items.
-- [ ] There are tests for editing to do list items.
+- [X] There are tests for creating to do list items.
+- [X] There are tests for deleting to do list items.
+- [X] There are tests for completing to do list items.
+- [X] There are tests for editing to do list items.
 - [ ] All tests are passing.
 
 \* A quick and easy way to do this is to use the `alert()` function.
