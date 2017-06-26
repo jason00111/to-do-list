@@ -1,12 +1,39 @@
 const app = require('express')()
 const bodyParser = require('body-parser')
+const cookieSession = require('cookie-session')
 const db = require('./database/database.js')
 
 app.use(bodyParser.json())
 
+app.use(cookieSession({
+  name: 'user',
+  keys: ['key1', 'key2']
+}))
+
+app.get('/login', (req, res) => {
+  res.render()
+})
+
+app.post('/login', (req, res) => {
+  db.getAllUsers()
+  .then(users => {
+    const verifiedUser = users.filter(user => {
+      return user.name === req.body.userName &&
+        user.password === req.body.password
+    })[0]
+
+    if (verifiedUser) {
+      req.session.userId = verifiedUser.id
+    } else {
+      // error
+      console.error('no verification')
+    }
+  })
+})
+
 app.post('/addToDo', (req, res) => {
   const task = req.body.task
-  const userId = 1 // get from authentication or session or cookies or something
+  const userId = req.session.userId
   db.addToDo(userId, task) // then redirect to user's todo list page
 })
 
@@ -32,7 +59,7 @@ app.post('/editToDo', (req, res) => {
 })
 
 app.get('/getToDos', (req, res) => {
-  const userId = 1 // get from authentication or session or cookies or something
+  const userId = req.session.userId
   db.getToDosByUserId(userId)
 })
 

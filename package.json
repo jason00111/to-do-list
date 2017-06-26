@@ -7,7 +7,8 @@
     "test": "npm run db:seed && mocha database/database.test.js",
     "db:create": "createdb to_do",
     "db:init": "psql to_do < database/schema.sql",
-    "db:seed": "npm run db:init && psql to_do < database/seed.sql"
+    "db:seed": "npm run db:init && psql to_do < database/seed.sql",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/jason00111/to-do-list#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "cookie-session": "^2.0.0-beta.2",
     "express": "^4.15.3",
     "pg-promise": "^6.1.1"
   },
