@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { getToDosByUserId, addToDo, deleteToDoById, completeToDoById } = require('./database.js')
+const { getToDosByUserId, addToDo, deleteToDoById, completeToDoById, uncompleteToDoById } = require('./database.js')
 
 describe('database', () => {
   it('getToDosByUserId gets tasks by user id', () =>
@@ -50,6 +50,24 @@ describe('database', () => {
           const task = results.filter(result =>
             result.task === 'make authentication')[0]
           return expect(task.completed).to.be.true
+        })
+      )
+    })
+  )
+
+  it('uncompleteToDoById marks a to-do as uncomplete', () =>
+    getToDosByUserId(2)
+    .then(results => {
+      const task = results.filter(result =>
+        result.task === 'make authentication')[0]
+      expect(task.completed).to.be.true
+      return uncompleteToDoById(task.id)
+      .then(() =>
+        getToDosByUserId(2)
+        .then(results => {
+          const task = results.filter(result =>
+            result.task === 'make authentication')[0]
+          return expect(task.completed).to.be.false
         })
       )
     })

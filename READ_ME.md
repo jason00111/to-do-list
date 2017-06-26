@@ -80,7 +80,7 @@ When working on this goal, you'll encounter questions like:
 - [X] `addToDos`
 - [X] `deleteToDoById`
 - [X] `completeToDoById`
-- [ ] `uncompleteToDo`
+- [X] `uncompleteToDo`
 - [ ] `editToDo`
 - [ ] `getUserById`
 - [X] `getToDosByUserId`
