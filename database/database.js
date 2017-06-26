@@ -21,6 +21,15 @@ const uncompleteToDoById = id =>
 const editToDoById = (id, task) =>
   pgp.none('UPDATE to_dos SET task = $2 WHERE id = $1', [id, task])
 
+const getAllUsers = () =>
+  pgp.any('SELECT * FROM users')
+
+const addUser = (name, password) =>
+  pgp.none(
+    'INSERT INTO users (name, password) VALUES ($1, $2)',
+    [name, password]
+  )
+
 module.exports = {
   getToDosByUserId,
   addToDo,
@@ -28,5 +37,7 @@ module.exports = {
   completeToDoById,
   uncompleteToDoById,
   editToDoById,
-  getToDoById
+  getToDoById,
+  getAllUsers,
+  addUser
 }

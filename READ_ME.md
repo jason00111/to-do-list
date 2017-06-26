@@ -84,7 +84,7 @@ When working on this goal, you'll encounter questions like:
 - [X] `editToDoById`
 - [X] `getUserById`
 - [X] `getToDosByUserId`
-- [ ] `addUser`
+- [X] `addUser`
 - [ ] `deleteUser`
 
 #### Testing

@@ -6,7 +6,9 @@ const {
   completeToDoById,
   uncompleteToDoById,
   editToDoById,
-  getToDoById
+  getToDoById,
+  getAllUsers,
+  addUser
 } = require('./database.js')
 
 describe('database', () => {
@@ -86,6 +88,17 @@ describe('database', () => {
     .then(() =>
       getToDoById(1)
       .then(result => expect(result.task).to.equal('grow flowers'))
+    )
+  )
+
+  it('addUser adds a user', () =>
+    addUser('Sushi', 'dog')
+    .then(() =>
+      getAllUsers()
+      .then(users => {
+        const sushi = users.filter(user => user.name === 'Sushi')
+        return expect(sushi).to.have.lengthOf(1)
+      })
     )
   )
 })
