@@ -1,5 +1,13 @@
 const { expect } = require('chai')
-const { getToDosByUserId, addToDo, deleteToDoById, completeToDoById, uncompleteToDoById } = require('./database.js')
+const {
+  getToDosByUserId,
+  addToDo,
+  deleteToDoById,
+  completeToDoById,
+  uncompleteToDoById,
+  editToDoById,
+  getToDoById
+} = require('./database.js')
 
 describe('database', () => {
   it('getToDosByUserId gets tasks by user id', () =>
@@ -71,5 +79,13 @@ describe('database', () => {
         })
       )
     })
+  )
+
+  it('editToDoById changes the task text', () =>
+    editToDoById(1, 'grow flowers')
+    .then(() =>
+      getToDoById(1)
+      .then(result => expect(result.task).to.equal('grow flowers'))
+    )
   )
 })

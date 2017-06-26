@@ -80,9 +80,9 @@ When working on this goal, you'll encounter questions like:
 - [X] `addToDos`
 - [X] `deleteToDoById`
 - [X] `completeToDoById`
-- [X] `uncompleteToDo`
-- [ ] `editToDo`
-- [ ] `getUserById`
+- [X] `uncompleteToDoById`
+- [X] `editToDoById`
+- [X] `getUserById`
 - [X] `getToDosByUserId`
 - [ ] `addUser`
 - [ ] `deleteUser`
@@ -92,7 +92,7 @@ There are thorough tests for all functionality involved in interacting with the 
 - [X] There are tests for creating to do list items.
 - [X] There are tests for deleting to do list items.
 - [X] There are tests for completing to do list items.
-- [ ] There are tests for editing to do list items.
+- [X] There are tests for editing to do list items.
 - [ ] All tests are passing.
 
 \* A quick and easy way to do this is to use the `alert()` function.

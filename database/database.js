@@ -1,5 +1,8 @@
 const pgp = require('pg-promise')()({ database: 'to_do' })
 
+const getToDoById = id =>
+  pgp.any('SELECT * FROM to_dos WHERE id = $1', id).then(results => results[0])
+
 const getToDosByUserId = user_id =>
   pgp.any('SELECT * FROM to_dos WHERE user_id = $1', user_id)
 
@@ -15,4 +18,15 @@ const completeToDoById = id =>
 const uncompleteToDoById = id =>
   pgp.none('UPDATE to_dos SET completed = false WHERE id = $1', id)
 
-module.exports = { getToDosByUserId, addToDo, deleteToDoById, completeToDoById, uncompleteToDoById }
+const editToDoById = (id, task) =>
+  pgp.none('UPDATE to_dos SET task = $2 WHERE id = $1', [id, task])
+
+module.exports = {
+  getToDosByUserId,
+  addToDo,
+  deleteToDoById,
+  completeToDoById,
+  uncompleteToDoById,
+  editToDoById,
+  getToDoById
+}
