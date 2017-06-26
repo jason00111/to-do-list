@@ -21,7 +21,7 @@ describe('database', () => {
   )
 
   it('addToDo adds a to-do', () =>
-    addToDo('buy bread', 1)
+    addToDo(1, 'buy bread')
     .then(() =>
       getToDosByUserId(1)
       .then(results =>
