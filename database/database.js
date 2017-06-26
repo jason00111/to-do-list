@@ -6,4 +6,7 @@ const getToDosByUserId = user_id =>
 const addToDo = (task, user_id) =>
   pgp.none('INSERT INTO to_dos (task, user_id) VALUES ($1, $2)', [task, user_id])
 
-module.exports = { getToDosByUserId, addToDo }
+const deleteToDoById = id =>
+  pgp.none('DELETE FROM to_dos WHERE id = $1', id)
+
+module.exports = { getToDosByUserId, addToDo, deleteToDoById }
