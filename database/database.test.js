@@ -8,7 +8,8 @@ const {
   editToDoById,
   getToDoById,
   getAllUsers,
-  addUser
+  addUser,
+  deleteUserById
 } = require('./database.js')
 
 describe('database', () => {
@@ -99,6 +100,17 @@ describe('database', () => {
         const sushi = users.filter(user => user.name === 'Sushi')
         return expect(sushi).to.have.lengthOf(1)
       })
+    )
+  )
+
+  it('deleteUserById deletes a user', () =>
+    getAllUsers()
+    .then(initialUsers =>
+      deleteUserById(1)
+      .then(() =>
+        getAllUsers()
+        .then(finalUsers => expect(initialUsers.length - 1).to.equal(finalUsers.length))
+      )
     )
   )
 })

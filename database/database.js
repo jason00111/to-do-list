@@ -30,6 +30,15 @@ const addUser = (name, password) =>
     [name, password]
   )
 
+const deleteToDosByUserId = user_id =>
+  pgp.none('DELETE FROM to_dos WHERE user_id = $1', user_id)
+
+const deleteUserById = id =>
+  deleteToDosByUserId(id)
+  .then(() =>
+    pgp.none('DELETE FROM users WHERE id = $1', id)
+  )
+
 module.exports = {
   getToDosByUserId,
   addToDo,
@@ -39,5 +48,6 @@ module.exports = {
   editToDoById,
   getToDoById,
   getAllUsers,
-  addUser
+  addUser,
+  deleteUserById
 }
