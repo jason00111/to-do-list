@@ -79,9 +79,9 @@ When working on this goal, you'll encounter questions like:
 #### Database Functions
 - [X] `addToDos`
 - [X] `deleteToDoById`
-- [ ] `completeTask`
-- [ ] `uncompleteTask`
-- [ ] `editTask`
+- [X] `completeToDoById`
+- [ ] `uncompleteToDo`
+- [ ] `editToDo`
 - [ ] `getUserById`
 - [X] `getToDosByUserId`
 - [ ] `addUser`
@@ -91,7 +91,7 @@ When working on this goal, you'll encounter questions like:
 There are thorough tests for all functionality involved in interacting with the database.
 - [X] There are tests for creating to do list items.
 - [X] There are tests for deleting to do list items.
-- [ ] There are tests for completing to do list items.
+- [X] There are tests for completing to do list items.
 - [ ] There are tests for editing to do list items.
 - [ ] All tests are passing.
 

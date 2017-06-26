@@ -9,4 +9,7 @@ const addToDo = (task, user_id) =>
 const deleteToDoById = id =>
   pgp.none('DELETE FROM to_dos WHERE id = $1', id)
 
-module.exports = { getToDosByUserId, addToDo, deleteToDoById }
+const completeToDoById = id =>
+  pgp.none('UPDATE to_dos SET completed = true WHERE id = $1', id)
+
+module.exports = { getToDosByUserId, addToDo, deleteToDoById, completeToDoById }
