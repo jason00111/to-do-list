@@ -77,19 +77,19 @@ When working on this goal, you'll encounter questions like:
 - [ ] App persists to do list items in a database.
 
 #### Database Functions
-- [ ] `addTask`
+- [X] `addToDos`
 - [ ] `deleteTask`
 - [ ] `completeTask`
 - [ ] `uncompleteTask`
 - [ ] `editTask`
 - [ ] `getUserById`
-- [ ] `getTasksByUserId`
+- [X] `getToDosByUserId`
 - [ ] `addUser`
 - [ ] `deleteUser`
 
 #### Testing
 There are thorough tests for all functionality involved in interacting with the database.
-- [ ] There are tests for creating to do list items.
+- [X] There are tests for creating to do list items.
 - [ ] There are tests for deleting to do list items.
 - [ ] There are tests for completing to do list items.
 - [ ] There are tests for editing to do list items.
