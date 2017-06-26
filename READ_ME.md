@@ -76,6 +76,17 @@ When working on this goal, you'll encounter questions like:
 - [ ] Backend uses Node.js and [Express][npm-express].
 - [ ] App persists to do list items in a database.
 
+#### Database Functions
+- [ ] `addTask`
+- [ ] `deleteTask`
+- [ ] `completeTask`
+- [ ] `uncompleteTask`
+- [ ] `editTask`
+- [ ] `getUserById`
+- [ ] `getTasksByUserId`
+- [ ] `addUser`
+- [ ] `deleteUser`
+
 #### Testing
 There are thorough tests for all functionality involved in interacting with the database.
 - [ ] There are tests for creating to do list items.
