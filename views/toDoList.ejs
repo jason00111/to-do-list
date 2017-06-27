@@ -7,6 +7,12 @@
 
 <ul>
   <% for (let i = 0; i < toDos.length; i++) { %>
-    <li><%= toDos[i].task %></li>
+    <li>
+      <%= toDos[i].task %>
+      <form method="post" action="/deleteToDo">
+        <input name="toDoId" value=<%= toDos[i].id %> type="hidden" />
+        <button type="submit">X</button>
+      </form>
+    </li>
   <% } %>
 </ul>

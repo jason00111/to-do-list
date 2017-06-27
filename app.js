@@ -88,9 +88,12 @@ app.post('/addToDo', (req, res) => {
   })
 })
 
-app.post('/delelteToDo', (req, res) => {
+app.post('/deleteToDo', (req, res) => {
   const id = req.body.toDoId
   db.deleteToDoById(id)
+  .then(() => {
+    res.redirect('/')
+  })
 })
 
 app.post('/completeToDo', (req, res) => {

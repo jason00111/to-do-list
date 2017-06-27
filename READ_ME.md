@@ -68,7 +68,7 @@ When working on this goal, you'll encounter questions like:
 
 #### Functionality
 - [X] Users can create to do list items.
-- [ ] Users can delete unwanted to do list items.
+- [X] Users can delete unwanted to do list items.
 - [ ] Users can check items off as completed.
 - [ ] Users can edit the text on existing to do list items.
 - [ ] UI renders to do items differently when they are completed (using a checkbox or some other indicator).
