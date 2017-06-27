@@ -67,7 +67,7 @@ When working on this goal, you'll encounter questions like:
 - [ ] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
 
 #### Functionality
-- [ ] Users can create to do list items.
+- [X] Users can create to do list items.
 - [ ] Users can delete unwanted to do list items.
 - [ ] Users can check items off as completed.
 - [ ] Users can edit the text on existing to do list items.
@@ -102,8 +102,9 @@ There are thorough tests for all functionality involved in interacting with the 
 - [ ] App is deployed on Heroku.
 - [ ] Users can rearrange to do list items.
 - [ ] Users can create multiple to-do lists.
-- [ ] Users have their own account and can sign up and log in/out.
+- [X] Users have their own account and can sign up and log in/out.
 - [ ] App is written with ES6 and compiled using [babel][npm-babel].
+- [ ] Use fetch instead of html form.
 
 [npm-express]: https://www.npmjs.com/package/express
 [npm-babel]: https://www.npmjs.com/package/babel

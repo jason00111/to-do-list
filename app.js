@@ -82,7 +82,10 @@ app.post('/signup', (req, res) => {
 app.post('/addToDo', (req, res) => {
   const task = req.body.task
   const userId = req.session.userId
-  db.addToDo(userId, task) // then redirect to user's todo list page
+  db.addToDo(userId, task)
+  .then(() => {
+    res.redirect('/')
+  })
 })
 
 app.post('/delelteToDo', (req, res) => {

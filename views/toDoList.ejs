@@ -1,4 +1,10 @@
 <a href="/logout">logout</a>
+
+<form method="post" action="/addToDo">
+  <input name="task" type="text" placeholder="new to-do"/>
+  <button type="submit">+</button>
+</form>
+
 <ul>
   <% for (let i = 0; i < toDos.length; i++) { %>
     <li><%= toDos[i].task %></li>
