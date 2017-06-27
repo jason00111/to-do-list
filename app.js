@@ -106,6 +106,14 @@ app.post('/uncompleteToDo', (req, res) => {
   db.uncompleteToDoById(id)
 })
 
+app.post('/toggleCompleteness', (req, res) => {
+  const id = req.body.toDoId
+  db.toggleCompletenessById(id)
+  .then(() => {
+    res.redirect('/')
+  })
+})
+
 app.post('/editToDo', (req, res) => {
   const id = req.body.toDoId
   const task = req.body.task

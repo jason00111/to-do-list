@@ -9,6 +9,14 @@
   <% for (let i = 0; i < toDos.length; i++) { %>
     <li>
       <%= toDos[i].task %>
+      <form method="post" action="/toggleCompleteness">
+        <input name="toDoId" value=<%= toDos[i].id %> type="hidden" />
+        <button type="submit" style=<%=
+          toDos[i].completed ?
+          'background-color:green;' :
+          ''
+        %>>&#10003;</button>
+      </form>
       <form method="post" action="/deleteToDo">
         <input name="toDoId" value=<%= toDos[i].id %> type="hidden" />
         <button type="submit">X</button>

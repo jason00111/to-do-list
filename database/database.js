@@ -18,6 +18,9 @@ const completeToDoById = id =>
 const uncompleteToDoById = id =>
   pgp.none('UPDATE to_dos SET completed = false WHERE id = $1', id)
 
+const toggleCompletenessById = id =>
+  pgp.none('UPDATE to_dos SET completed = NOT completed WHERE id = $1', id)
+
 const editToDoById = (id, task) =>
   pgp.none('UPDATE to_dos SET task = $2 WHERE id = $1', [id, task])
 
@@ -50,5 +53,6 @@ module.exports = {
   getToDoById,
   getAllUsers,
   addUser,
-  deleteUserById
+  deleteUserById,
+  toggleCompletenessById
 }

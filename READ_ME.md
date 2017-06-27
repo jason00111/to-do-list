@@ -61,20 +61,20 @@ When working on this goal, you'll encounter questions like:
 #### General
 - [ ] Code uses a linter and there are no linting errors.
 - [ ] Repository includes a README file with basic installation and setup.
-- [ ] All dependencies are properly declared in `package.json`.
+- [X] All dependencies are properly declared in `package.json`.
 - [ ] All major features are added via pull requests with a clear description and concise commit messages.
-- [ ] Every pull request has been reviewed by at least one other person.
-- [ ] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
+- [X] Every pull request has been reviewed by at least one other person.
+- [X] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
 
 #### Functionality
 - [X] Users can create to do list items.
 - [X] Users can delete unwanted to do list items.
-- [ ] Users can check items off as completed.
+- [X] Users can check items off as completed.
 - [ ] Users can edit the text on existing to do list items.
-- [ ] UI renders to do items differently when they are completed (using a checkbox or some other indicator).
+- [X] UI renders to do items differently when they are completed (using a checkbox or some other indicator).
 - [ ] When an error occurs, the user is notified with modal message.\*
-- [ ] Backend uses Node.js and [Express][npm-express].
-- [ ] App persists to do list items in a database.
+- [X] Backend uses Node.js and [Express][npm-express].
+- [X] App persists to do list items in a database.
 
 #### Database Functions
 - [X] `addToDos`
