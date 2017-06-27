@@ -94,13 +94,14 @@ describe('database', () => {
 
   it('addUser adds a user', () =>
     addUser('Sushi', 'dog')
-    .then(() =>
-      getAllUsers()
+    .then(result => {
+      expect(result).to.be.a('number')
+      return getAllUsers()
       .then(users => {
         const sushi = users.filter(user => user.name === 'Sushi')
         return expect(sushi).to.have.lengthOf(1)
       })
-    )
+    })
   )
 
   it('deleteUserById deletes a user', () =>

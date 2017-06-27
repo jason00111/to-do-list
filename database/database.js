@@ -25,10 +25,11 @@ const getAllUsers = () =>
   pgp.any('SELECT * FROM users')
 
 const addUser = (name, password) =>
-  pgp.none(
-    'INSERT INTO users (name, password) VALUES ($1, $2)',
+  pgp.one(
+    'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING id',
     [name, password]
   )
+  .then(result => result.id)
 
 const deleteToDosByUserId = user_id =>
   pgp.none('DELETE FROM to_dos WHERE user_id = $1', user_id)
