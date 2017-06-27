@@ -1,9 +1,20 @@
+<link type="text/css" rel="stylesheet" href= "/style.css"/>
+
 <% if (existingUser) { %>
   <h3>This username already exists.  Choose a different one.</h3>
 <% } %>
 
+<div class="header">
+  <div class="right">
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+  </div>
+</div>
+
 <form method="post" action="/signup">
-  <input type="text" placeholder="username" name="userName" />
-  <input type="text" placeholder="password" name="password" />
-  <input type="submit" value="signup" />
+  <ul>
+    <li><input type="text" placeholder="username" name="userName" /></li>
+    <li><input type="text" placeholder="password" name="password" /></li>
+    <li><input type="submit" value="signup" /></li>
+  </ul>
 </form>

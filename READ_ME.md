@@ -1,20 +1,10 @@
----
-authors:
-- "rachel-ftw"
-- "mantinone"
-team_size: 1
-goal_id: 64
-title: To Do List App
-created_at: '2016-08-06T00:52:33Z'
-labels:
-- practice
-published: true
-level: '1'
-phase: 3
-redirect_from: "/goals/64"
----
-
 # To Do List
+
+## Gettin Started
+
+1. $ npm install
+1. $ npm run db:create
+1. $ npm run db:seed
 
 ## Challenge Rating
 
@@ -60,7 +50,7 @@ When working on this goal, you'll encounter questions like:
 
 #### General
 - [ ] Code uses a linter and there are no linting errors.
-- [ ] Repository includes a README file with basic installation and setup.
+- [x] Repository includes a README file with basic installation and setup.
 - [X] All dependencies are properly declared in `package.json`.
 - [ ] All major features are added via pull requests with a clear description and concise commit messages.
 - [X] Every pull request has been reviewed by at least one other person.

@@ -3,14 +3,15 @@ process.on('unhandledRejection', (reason, promise) => {
     console.log('Promise:', promise);
 });
 
-const app = require('express')()
+const express = require('express')
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
 const db = require('./database/database.js')
+const app = express()
 
 require('ejs')
 app.set('view engine', 'ejs')
-
+app.use(express.static(__dirname + '/public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -80,12 +81,16 @@ app.post('/signup', (req, res) => {
 })
 
 app.post('/addToDo', (req, res) => {
-  const task = req.body.task
-  const userId = req.session.userId
-  db.addToDo(userId, task)
-  .then(() => {
+  const task = req.body.task || null
+  if (task) {
+    const userId = req.session.userId
+    db.addToDo(userId, task)
+    .then(() => {
+      res.redirect('/')
+    })
+  } else {
     res.redirect('/')
-  })
+  }
 })
 
 app.post('/deleteToDo', (req, res) => {

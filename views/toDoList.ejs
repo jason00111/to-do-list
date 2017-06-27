@@ -1,14 +1,21 @@
-<a href="/logout">logout</a>
+<link type="text/css" rel="stylesheet" href= "/style.css"/>
 
-<form method="post" action="/addToDo">
-  <input name="task" type="text" placeholder="new to-do"/>
-  <button type="submit">+</button>
-</form>
+<div class="header">
+  <a class="right" href="/logout">logout</a>
+</div>
 
 <ul>
+  
+  <li><form method="post" action="/addToDo">
+    <input name="task" type="text" placeholder="new to-do"/>
+    <button type="submit">+</button>
+  </form> </li>
+
   <% for (let i = 0; i < toDos.length; i++) { %>
     <li>
+
       <%= toDos[i].task %>
+      
       <form method="post" action="/toggleCompleteness">
         <input name="toDoId" value=<%= toDos[i].id %> type="hidden" />
         <button type="submit" style=<%=
@@ -17,15 +24,18 @@
           ''
         %>>&#10003;</button>
       </form>
+
       <form method="post" action="/editToDo">
         <input name="toDoId" value=<%= toDos[i].id %> type="hidden" />
         <input name="task" value=<%= toDos[i].task%> type="text" />
         <button type="submit">Edit</button>
       </form>
+
       <form method="post" action="/deleteToDo">
         <input name="toDoId" value=<%= toDos[i].id %> type="hidden" />
         <button type="submit">X</button>
       </form>
+
     </li>
   <% } %>
 </ul>
