@@ -70,9 +70,9 @@ When working on this goal, you'll encounter questions like:
 - [X] Users can create to do list items.
 - [X] Users can delete unwanted to do list items.
 - [X] Users can check items off as completed.
-- [ ] Users can edit the text on existing to do list items.
+- [x] Users can edit the text on existing to do list items.
 - [X] UI renders to do items differently when they are completed (using a checkbox or some other indicator).
-- [ ] When an error occurs, the user is notified with modal message.\*
+- [x] When an error occurs, the user is notified with modal message.\*
 - [X] Backend uses Node.js and [Express][npm-express].
 - [X] App persists to do list items in a database.
 

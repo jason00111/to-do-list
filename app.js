@@ -118,6 +118,9 @@ app.post('/editToDo', (req, res) => {
   const id = req.body.toDoId
   const task = req.body.task
   db.editToDoById(id, task)
+  .then(() => {
+    res.redirect('/')
+  })
 })
 
 app.get('/getToDos', (req, res) => {
