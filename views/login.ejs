@@ -1,0 +1,9 @@
+<% if (invalid) { %>
+  <h3>Invalid username or password.  Try again.</h3>
+<% } %>
+
+<form method="post" action="/login">
+  <input type="text" placeholder="username" name="userName" />
+  <input type="text" placeholder="password" name="password" />
+  <input type="submit" value="login" />
+</form>

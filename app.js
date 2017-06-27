@@ -1,17 +1,42 @@
+process.on('unhandledRejection', (reason, promise) => {
+    console.log('Reason:', reason);
+    console.log('Promise:', promise);
+});
+
 const app = require('express')()
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
 const db = require('./database/database.js')
 
+require('ejs')
+app.set('view engine', 'ejs')
+
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(cookieSession({
   name: 'user',
   keys: ['key1', 'key2']
 }))
 
+app.get('/', (req, res) => {
+  if (req.session.userId) {
+    db.getToDosByUserId(req.session.userId)
+    .then(toDos =>
+      res.render('toDoList', { toDos })
+    )
+  } else {
+    res.render('home')
+  }
+})
+
+app.get('/logout', (req, res) => {
+  req.session = null
+  res.redirect('/')
+})
+
 app.get('/login', (req, res) => {
-  res.render()
+  res.render('login', { invalid: false })
 })
 
 app.post('/login', (req, res) => {
@@ -24,9 +49,32 @@ app.post('/login', (req, res) => {
 
     if (verifiedUser) {
       req.session.userId = verifiedUser.id
+      res.redirect('/')
     } else {
-      // error
-      console.error('no verification')
+      res.render('login', { invalid: true })
+    }
+  })
+})
+
+app.get('/signup', (req, res) => {
+  res.render('signup', { existingUser: false })
+})
+
+app.post('/signup', (req, res) => {
+  db.getAllUsers()
+  .then(users => {
+    const existingUser = users.filter(user => {
+      return user.name === req.body.userName
+    })[0]
+
+    if (existingUser) {
+      res.render('signup', { existingUser: true })
+    } else {
+      db.addUser(req.body.userName, req.body.password)
+      .then(userId => {
+        req.session.userId = userId
+        res.redirect('/')
+      })
     }
   })
 })
