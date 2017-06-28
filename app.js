@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
 const db = require('./database/database.js')
 const app = express()
+const bcrypt = require('bcrypt')
 
 require('ejs')
 app.set('view engine', 'ejs')
@@ -43,16 +44,21 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   db.getAllUsers()
   .then(users => {
-    const verifiedUser = users.filter(user => {
-      return user.name === req.body.userName &&
-        user.password === req.body.password
-    })[0]
+    const foundUser = users.find(user => user.name === req.body.userName)
 
-    if (verifiedUser) {
-      req.session.userId = verifiedUser.id
-      res.redirect('/')
-    } else {
+    if (!foundUser) {
       res.render('login', { invalid: true })
+    } else {
+      bcrypt.compare(req.body.password, foundUser.password, (err, validPass) =>
+        {
+          if (!validPass) {
+            res.render('login', { invalid: true })
+          } else {
+            req.session.userId = foundUser.id
+            res.redirect('/')
+          }
+        }
+      )
     }
   })
 })
@@ -71,10 +77,12 @@ app.post('/signup', (req, res) => {
     if (existingUser) {
       res.render('signup', { existingUser: true })
     } else {
-      db.addUser(req.body.userName, req.body.password)
-      .then(userId => {
-        req.session.userId = userId
-        res.redirect('/')
+      bcrypt.hash(req.body.password, 12, (err, hashedPassword) => {
+        db.addUser(req.body.userName, hashedPassword)
+        .then(userId => {
+          req.session.userId = userId
+          res.redirect('/')
+        })
       })
     }
   })
