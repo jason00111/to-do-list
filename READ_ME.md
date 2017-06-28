@@ -1,20 +1,10 @@
----
-authors:
-- "rachel-ftw"
-- "mantinone"
-team_size: 1
-goal_id: 64
-title: To Do List App
-created_at: '2016-08-06T00:52:33Z'
-labels:
-- practice
-published: true
-level: '1'
-phase: 3
-redirect_from: "/goals/64"
----
-
 # To Do List
+
+## Gettin Started
+
+1. $ npm install
+1. $ npm run db:create
+1. $ npm run db:seed
 
 ## Challenge Rating
 
@@ -60,21 +50,21 @@ When working on this goal, you'll encounter questions like:
 
 #### General
 - [ ] Code uses a linter and there are no linting errors.
-- [ ] Repository includes a README file with basic installation and setup.
-- [ ] All dependencies are properly declared in `package.json`.
+- [x] Repository includes a README file with basic installation and setup.
+- [X] All dependencies are properly declared in `package.json`.
 - [ ] All major features are added via pull requests with a clear description and concise commit messages.
-- [ ] Every pull request has been reviewed by at least one other person.
-- [ ] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
+- [X] Every pull request has been reviewed by at least one other person.
+- [X] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
 
 #### Functionality
-- [ ] Users can create to do list items.
-- [ ] Users can delete unwanted to do list items.
-- [ ] Users can check items off as completed.
-- [ ] Users can edit the text on existing to do list items.
-- [ ] UI renders to do items differently when they are completed (using a checkbox or some other indicator).
-- [ ] When an error occurs, the user is notified with modal message.\*
-- [ ] Backend uses Node.js and [Express][npm-express].
-- [ ] App persists to do list items in a database.
+- [X] Users can create to do list items.
+- [X] Users can delete unwanted to do list items.
+- [X] Users can check items off as completed.
+- [x] Users can edit the text on existing to do list items.
+- [X] UI renders to do items differently when they are completed (using a checkbox or some other indicator).
+- [x] When an error occurs, the user is notified with modal message.\*
+- [X] Backend uses Node.js and [Express][npm-express].
+- [X] App persists to do list items in a database.
 
 #### Database Functions
 - [X] `addToDos`
@@ -102,8 +92,9 @@ There are thorough tests for all functionality involved in interacting with the 
 - [ ] App is deployed on Heroku.
 - [ ] Users can rearrange to do list items.
 - [ ] Users can create multiple to-do lists.
-- [ ] Users have their own account and can sign up and log in/out.
+- [X] Users have their own account and can sign up and log in/out.
 - [ ] App is written with ES6 and compiled using [babel][npm-babel].
+- [ ] Use fetch instead of html form.
 
 [npm-express]: https://www.npmjs.com/package/express
 [npm-babel]: https://www.npmjs.com/package/babel
