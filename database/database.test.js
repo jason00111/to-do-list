@@ -3,8 +3,6 @@ const {
   getToDosByUserId,
   addToDo,
   deleteToDoById,
-  completeToDoById,
-  uncompleteToDoById,
   editToDoById,
   getToDoById,
   getAllUsers,
@@ -48,7 +46,7 @@ describe('database', () => {
     })
   )
 
-  it('completeToDoById marks a to-do as complete', () =>
+/*  it('completeToDoById marks a to-do as complete', () =>
     getToDosByUserId(2)
     .then(results => {
       const task = results.filter(result =>
@@ -82,7 +80,7 @@ describe('database', () => {
         })
       )
     })
-  )
+  ) */
 
   it('editToDoById changes the task text', () =>
     editToDoById(1, 'grow flowers')
@@ -95,7 +93,10 @@ describe('database', () => {
   it('addUser adds a user', () =>
     addUser('Sushi', 'dog')
     .then(result => {
-      expect(result).to.be.a('number')
+      expect(result).to.be.an('object').with.property('id')
+      expect(result).to.have.property('name')
+      expect(result).to.have.property('password')
+
       return getAllUsers()
       .then(users => {
         const sushi = users.filter(user => user.name === 'Sushi')

@@ -12,12 +12,6 @@ const addToDo = (user_id, task) =>
 const deleteToDoById = id =>
   pgp.none('DELETE FROM to_dos WHERE id = $1', id)
 
-const completeToDoById = id =>
-  pgp.none('UPDATE to_dos SET completed = true WHERE id = $1', id)
-
-const uncompleteToDoById = id =>
-  pgp.none('UPDATE to_dos SET completed = false WHERE id = $1', id)
-
 const toggleCompletenessById = id =>
   pgp.none('UPDATE to_dos SET completed = NOT completed WHERE id = $1', id)
 
@@ -32,10 +26,9 @@ const getUserById = id =>
 
 const addUser = (name, password) =>
   pgp.one(
-    'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING id',
+    'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *',
     [name, password]
   )
-  .then(result => result.id)
 
 const deleteToDosByUserId = user_id =>
   pgp.none('DELETE FROM to_dos WHERE user_id = $1', user_id)
@@ -50,8 +43,6 @@ module.exports = {
   getToDosByUserId,
   addToDo,
   deleteToDoById,
-  completeToDoById,
-  uncompleteToDoById,
   editToDoById,
   getToDoById,
   getAllUsers,
