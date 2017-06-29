@@ -39,6 +39,9 @@ const deleteUserById = id =>
     pgp.none('DELETE FROM users WHERE id = $1', id)
   )
 
+const getUserByGithubId = githubId =>
+  pgp.one('SELECT * FROM users WHERE github_id = $1', githubId)
+
 module.exports = {
   getToDosByUserId,
   addToDo,
@@ -49,5 +52,6 @@ module.exports = {
   addUser,
   deleteUserById,
   toggleCompletenessById,
-  getUserById
+  getUserById,
+  getUserByGithubId
 }

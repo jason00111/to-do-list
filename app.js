@@ -9,7 +9,9 @@ const db = require('./database/database.js')
 const app = express()
 const bcrypt = require('bcrypt')
 const passport = require('passport')
+const GitHubStrategy = require('passport-github2').Strategy
 const LocalStrategy = require('passport-local').Strategy
+const secrets = require('./secrets')
 
 require('ejs')
 app.set('view engine', 'ejs')
@@ -33,6 +35,19 @@ passport.deserializeUser(function (id, done) {
   db.getUserById(id).then(user => done(null, user))
 })
 
+passport.use(new GitHubStrategy({
+    clientID: secrets.clientId,
+    clientSecret: secrets.clientSecret,
+    callbackURL: "http://localhost:3000/auth/github/callback",
+    passReqToCallback: true
+  },
+  function(req, accessToken, refreshToken, profile, done) {
+
+    db.getUserByGithubId(profile.id)
+      .then(user => done(null, user))
+  }
+));
+
 passport.use(new LocalStrategy(
   function (username, password, done) {
     db.getAllUsers()
@@ -55,6 +70,15 @@ passport.use(new LocalStrategy(
     })
   }
 ))
+
+app.get('/auth/github',
+  passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+app.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 app.get('/', (req, res) => {
   if (req.user) {
