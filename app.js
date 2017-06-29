@@ -5,10 +5,12 @@ process.on('unhandledRejection', (reason, promise) => {
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const cookieSession = require('cookie-session')
+// const cookieSession = require('cookie-session')
 const db = require('./database/database.js')
 const app = express()
 const bcrypt = require('bcrypt')
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
 
 require('ejs')
 app.set('view engine', 'ejs')
@@ -16,12 +18,57 @@ app.use(express.static(__dirname + '/public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(cookieSession({
-  name: 'user',
-  keys: ['key1', 'key2']
-}))
+app.use(require('cookie-parser')())
+app.use(require('express-session')({ secret: 'secret', resave: true, saveUninitialized: true }))
 
-app.get('/', (req, res) => {
+// app.use(cookieSession({
+//   name: 'user',
+//   keys: ['key1', 'key2']
+// }))
+
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    console.log('in local strategy')
+    db.getAllUsers()
+    .then(users => {
+      const foundUser = users.find(user => user.name === username)
+
+      if (!foundUser) {
+        console.log('couldnt find user')
+        done(null, false)
+      } else {
+        bcrypt.compare(req.body.password, foundUser.password, (err, validPass) =>
+          {
+            if (!validPass) {
+              console.log('invalid password')
+              done(null, false)
+            } else {
+              console.log('valid password')
+              // req.session.userId = foundUser.id
+              done(null, foundUser)
+            }
+          }
+        )
+      }
+    })
+  }
+))
+
+passport.serializeUser(function (user, done) {
+  console.log('in serialize')
+  done(null, user.id)
+})
+
+passport.deserializeUser(function (id, done) {
+  console.log('in deserialize')
+  db.getUserById(id).then(user => done(null, user))
+})
+
+/*app.get('/', (req, res) => {
   if (req.session.userId) {
     db.getToDosByUserId(req.session.userId)
     .then(toDos =>
@@ -39,9 +86,14 @@ app.get('/logout', (req, res) => {
 
 app.get('/login', (req, res) => {
   res.render('login', { invalid: false })
-})
+})*/
 
-app.post('/login', (req, res) => {
+app.get('/passport', passport.authenticate('local', {
+  successRedirect: '/success',
+  failureRedirect: '/fail'
+}))
+
+/*app.post('/login', (req, res) => {
   db.getAllUsers()
   .then(users => {
     const foundUser = users.find(user => user.name === req.body.userName)
@@ -139,6 +191,6 @@ app.post('/editToDo', (req, res) => {
 app.get('/getToDos', (req, res) => {
   const userId = req.session.userId
   db.getToDosByUserId(userId)
-})
+})*/
 
 app.listen(3000, () => console.log('listening on port 3000'))

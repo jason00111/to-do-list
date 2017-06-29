@@ -27,6 +27,9 @@ const editToDoById = (id, task) =>
 const getAllUsers = () =>
   pgp.any('SELECT * FROM users')
 
+const getUserById = id =>
+  pgp.one('SELECT * FROM users WHERE id = $1', id)
+
 const addUser = (name, password) =>
   pgp.one(
     'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING id',
@@ -54,5 +57,6 @@ module.exports = {
   getAllUsers,
   addUser,
   deleteUserById,
-  toggleCompletenessById
+  toggleCompletenessById,
+  getUserById
 }
