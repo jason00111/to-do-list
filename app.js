@@ -82,11 +82,13 @@ app.get('/auth/github/callback',
 
 app.get('/', (req, res) => {
   if (req.user) {
+    console.log('logged in')
     db.getToDosByUserId(req.user.id)
     .then(toDos =>
       res.render('toDoList', { toDos })
     )
   } else {
+    console.log('not logged in')
     res.redirect('/login')
   }
 })
@@ -168,3 +170,5 @@ app.post('/editToDo', (req, res) => {
 })
 
 app.listen(3000, () => console.log('listening on port 3000'))
+
+module.exports = app

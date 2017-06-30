@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run db:seed && mocha database/database.test.js && npm run db:seed",
+    "test": "npm run db:seed && mocha database/database.test.js && npm run db:seed && mocha routes.test.js",
     "db:create": "createdb to_do",
     "db:init": "psql to_do < database/schema.sql",
     "db:seed": "npm run db:init && psql to_do < database/seed.sql",
@@ -23,6 +23,7 @@
   "dependencies": {
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
+    "chai-http": "^3.0.0",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.2",
     "ejs": "^2.5.6",
