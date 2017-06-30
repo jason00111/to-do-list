@@ -27,7 +27,7 @@ const get = {
   toDosByUserId: getAllInfoFrom('to_dos', 'user_id'),
   allUsers: getAllInfoFrom('users'),
   userById: getAllInfoFrom('users', 'id', true),
-  userByGithubId: getAllInfoFrom('users', 'github_id')
+  userByGithubId: getAllInfoFrom('users', 'github_id', true)
 }
 
 const del = {
