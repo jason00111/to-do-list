@@ -1,46 +1,56 @@
 const pgp = require('pg-promise')()({ database: 'to_do' })
 
-const getToDoById = id =>
-  pgp.any('SELECT * FROM to_dos WHERE id = $1', id).then(results => results[0])
+const getAllInfoFrom = (table, selector, one) =>
+  id => {
+    const query = `SELECT * FROM ${table}` +
+      (selector ? ` WHERE ${selector} = $1` : '')
 
-const getToDosByUserId = user_id =>
-  pgp.any('SELECT * FROM to_dos WHERE user_id = $1', user_id)
+    return (one ? pgp.one : pgp.any)(query, id)
+  }
+
+const deleteFrom = (table, selector) =>
+  id => pgp.none(`DELETE FROM ${table} WHERE ${selector} = $1`, id)
+
+
+const getToDoById = getAllInfoFrom('to_dos', 'id', true)
+
+const getToDosByUserId = getAllInfoFrom('to_dos', 'user_id')
+
+const getAllUsers = getAllInfoFrom('users')
+
+const getUserById = getAllInfoFrom('users', 'id', true)
+
+const getUserByGithubId = getAllInfoFrom('users', 'github_id')
+
+
+const deleteToDoById = deleteFrom('to_dos', 'id')
+
+const deleteToDosByUserId = deleteFrom('to_dos', 'user_id')
+
+const deleteUserById = id =>
+  deleteToDosByUserId(id)
+  .then(() => deleteFrom('users', 'id')(id))
+
+const updateInfo = (selector, condition ) =>
+  (id, task) =>
+    pgp.none(
+      `UPDATE to_dos SET ${selector} = ${condition} WHERE id = $1`,
+      task ? [id, task] : id
+    )
+
+const toggleCompletenessById = updateInfo('completed', 'NOT completed')
+
+const editToDoById = updateInfo('task', '$2')
+
 
 const addToDo = (user_id, task) =>
-  pgp.none('INSERT INTO to_dos (task, user_id) VALUES ($1, $2)', [task, user_id])
-
-const deleteToDoById = id =>
-  pgp.none('DELETE FROM to_dos WHERE id = $1', id)
-
-const toggleCompletenessById = id =>
-  pgp.none('UPDATE to_dos SET completed = NOT completed WHERE id = $1', id)
-
-const editToDoById = (id, task) =>
-  pgp.none('UPDATE to_dos SET task = $2 WHERE id = $1', [id, task])
-
-const getAllUsers = () =>
-  pgp.any('SELECT * FROM users')
-
-const getUserById = id =>
-  pgp.one('SELECT * FROM users WHERE id = $1', id)
+pgp.none('INSERT INTO to_dos (task, user_id) VALUES ($1, $2)', [task, user_id])
 
 const addUser = (name, password) =>
   pgp.one(
     'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *',
     [name, password]
   )
-
-const deleteToDosByUserId = user_id =>
-  pgp.none('DELETE FROM to_dos WHERE user_id = $1', user_id)
-
-const deleteUserById = id =>
-  deleteToDosByUserId(id)
-  .then(() =>
-    pgp.none('DELETE FROM users WHERE id = $1', id)
-  )
-
-const getUserByGithubId = githubId =>
-  pgp.one('SELECT * FROM users WHERE github_id = $1', githubId)
 
 module.exports = {
   getToDosByUserId,
