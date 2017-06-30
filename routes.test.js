@@ -83,7 +83,7 @@ describe('database', () => {
           .end((err, res) => {
             expect(res).to.have.status(200)
             expect(res).to.redirectTo('http://' + res.request.host + '/')
-            db.getToDosByUserId(2)
+            db.get.toDosByUserId(2)
               .then(todos => {
                 expect(todos.find(todo => todo.task = 'build a house')).to.not.be.undefined
                 done()

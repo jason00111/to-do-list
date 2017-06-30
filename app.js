@@ -32,7 +32,7 @@ passport.serializeUser(function (user, done) {
 })
 
 passport.deserializeUser(function (id, done) {
-  db.getUserById(id).then(user => done(null, user))
+  db.get.userById(id).then(user => done(null, user))
 })
 
 passport.use(
@@ -44,7 +44,7 @@ passport.use(
       passReqToCallback: true
     },
     function(req, accessToken, refreshToken, profile, done) {
-      db.getUserByGithubId(profile.id)
+      db.get.userByGithubId(profile.id)
         .then(user => done(null, user))
     }
   )
@@ -52,7 +52,7 @@ passport.use(
 
 passport.use(new LocalStrategy(
   function (username, password, done) {
-    db.getAllUsers()
+    db.get.allUsers()
       .then(users => {
         const foundUser = users.find(user => user.name === username)
 
@@ -86,7 +86,7 @@ app.get('/auth/github/callback',
 
 app.get('/', (req, res) => {
   if (req.user) {
-    db.getToDosByUserId(req.user.id)
+    db.get.toDosByUserId(req.user.id)
       .then(toDos => res.render('toDoList', { toDos }))
   } else {
     res.redirect('/login')
@@ -112,7 +112,7 @@ app.get('/signup', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-  db.getAllUsers()
+  db.get.allUsers()
     .then(users => {
       const existingUser = users.filter(user => {
         return user.name === req.body.userName
@@ -122,7 +122,7 @@ app.post('/signup', (req, res) => {
         res.render('signup', { existingUser: true })
       } else {
         bcrypt.hash(req.body.password, 12, (err, hashedPassword) => {
-          db.addUser(req.body.userName, hashedPassword)
+          db.add.user(req.body.userName, hashedPassword)
             .then(user => {
               req.login(user, () => res.redirect('/'))
             })
@@ -135,7 +135,7 @@ app.post('/addToDo', (req, res) => {
   const task = req.body.task || null
   if (task) {
     const userId = req.user.id
-    db.addToDo(userId, task)
+    db.add.toDo(userId, task)
       .then(() => {
         res.redirect('/')
       })
@@ -146,7 +146,7 @@ app.post('/addToDo', (req, res) => {
 
 app.post('/deleteToDo', (req, res) => {
   const id = req.body.toDoId
-  db.deleteToDoById(id)
+  db.del.toDoById(id)
     .then(() => {
       res.redirect('/')
     })
@@ -154,7 +154,7 @@ app.post('/deleteToDo', (req, res) => {
 
 app.post('/toggleCompleteness', (req, res) => {
   const id = req.body.toDoId
-  db.toggleCompletenessById(id)
+  db.update.toggleCompletenessById(id)
     .then(() => {
       res.redirect('/')
     })
@@ -163,7 +163,7 @@ app.post('/toggleCompleteness', (req, res) => {
 app.post('/editToDo', (req, res) => {
   const id = req.body.toDoId
   const task = req.body.task
-  db.editToDoById(id, task)
+  db.update.toDoById(id, task)
     .then(() => {
       res.redirect('/')
     })
