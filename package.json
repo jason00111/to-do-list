@@ -8,7 +8,8 @@
     "db:create": "createdb to_do",
     "db:init": "psql to_do < database/schema.sql",
     "db:seed": "npm run db:init && psql to_do < database/seed.sql",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "lint": "./node_modules/.bin/eslint *.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,8 @@
   "devDependencies": {
     "chai": "^4.0.2",
     "eslint": "^4.1.1",
+    "eslint-plugin-chai-expect": "^1.1.1",
+    "eslint-plugin-mocha": "^4.11.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0"
   }
