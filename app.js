@@ -1,7 +1,7 @@
 process.on('unhandledRejection', (reason, promise) => {
-    console.log('Reason:', reason);
-    console.log('Promise:', promise);
-});
+  console.log('Reason:', reason)
+  console.log('Promise:', promise)
+})
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -35,60 +35,60 @@ passport.deserializeUser(function (id, done) {
   db.getUserById(id).then(user => done(null, user))
 })
 
-passport.use(new GitHubStrategy({
-    clientID: secrets.clientId,
-    clientSecret: secrets.clientSecret,
-    callbackURL: "http://localhost:3000/auth/github/callback",
-    passReqToCallback: true
-  },
-  function(req, accessToken, refreshToken, profile, done) {
-
-    db.getUserByGithubId(profile.id)
-      .then(user => done(null, user))
-  }
-));
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: secrets.clientId,
+      clientSecret: secrets.clientSecret,
+      callbackURL: 'http://localhost:3000/auth/github/callback',
+      passReqToCallback: true
+    },
+    function(req, accessToken, refreshToken, profile, done) {
+      db.getUserByGithubId(profile.id)
+        .then(user => done(null, user))
+    }
+  )
+)
 
 passport.use(new LocalStrategy(
   function (username, password, done) {
     db.getAllUsers()
-    .then(users => {
-      const foundUser = users.find(user => user.name === username)
+      .then(users => {
+        const foundUser = users.find(user => user.name === username)
 
-      if (!foundUser) {
-        done(null, false)
-      } else {
-        bcrypt.compare(password, foundUser.password, (err, validPass) =>
-          {
-            if (!validPass) {
-              done(null, false)
-            } else {
-              done(null, foundUser)
+        if (!foundUser) {
+          done(null, false)
+        } else {
+          bcrypt.compare(
+            password,
+            foundUser.password,
+            (err, validPass) => {
+              if (!validPass) {
+                done(null, false)
+              } else {
+                done(null, foundUser)
+              }
             }
-          }
-        )
-      }
-    })
+          )
+        }
+      })
   }
 ))
 
 app.get('/auth/github',
-  passport.authenticate('github', { scope: [ 'user:email' ] }));
+  passport.authenticate('github', { scope: [ 'user:email' ] }))
 
 app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
-  });
+    res.redirect('/')
+  })
 
 app.get('/', (req, res) => {
   if (req.user) {
-    console.log('logged in')
     db.getToDosByUserId(req.user.id)
-    .then(toDos =>
-      res.render('toDoList', { toDos })
-    )
+      .then(toDos => res.render('toDoList', { toDos }))
   } else {
-    console.log('not logged in')
     res.redirect('/login')
   }
 })
@@ -113,22 +113,22 @@ app.get('/signup', (req, res) => {
 
 app.post('/signup', (req, res) => {
   db.getAllUsers()
-  .then(users => {
-    const existingUser = users.filter(user => {
-      return user.name === req.body.userName
-    })[0]
+    .then(users => {
+      const existingUser = users.filter(user => {
+        return user.name === req.body.userName
+      })[0]
 
-    if (existingUser) {
-      res.render('signup', { existingUser: true })
-    } else {
-      bcrypt.hash(req.body.password, 12, (err, hashedPassword) => {
-        db.addUser(req.body.userName, hashedPassword)
-        .then(user => {
-          req.login(user, err => res.redirect('/'))
+      if (existingUser) {
+        res.render('signup', { existingUser: true })
+      } else {
+        bcrypt.hash(req.body.password, 12, (err, hashedPassword) => {
+          db.addUser(req.body.userName, hashedPassword)
+            .then(user => {
+              req.login(user, () => res.redirect('/'))
+            })
         })
-      })
-    }
-  })
+      }
+    })
 })
 
 app.post('/addToDo', (req, res) => {
@@ -136,9 +136,9 @@ app.post('/addToDo', (req, res) => {
   if (task) {
     const userId = req.user.id
     db.addToDo(userId, task)
-    .then(() => {
-      res.redirect('/')
-    })
+      .then(() => {
+        res.redirect('/')
+      })
   } else {
     res.redirect('/')
   }
@@ -147,26 +147,26 @@ app.post('/addToDo', (req, res) => {
 app.post('/deleteToDo', (req, res) => {
   const id = req.body.toDoId
   db.deleteToDoById(id)
-  .then(() => {
-    res.redirect('/')
-  })
+    .then(() => {
+      res.redirect('/')
+    })
 })
 
 app.post('/toggleCompleteness', (req, res) => {
   const id = req.body.toDoId
   db.toggleCompletenessById(id)
-  .then(() => {
-    res.redirect('/')
-  })
+    .then(() => {
+      res.redirect('/')
+    })
 })
 
 app.post('/editToDo', (req, res) => {
   const id = req.body.toDoId
   const task = req.body.task
   db.editToDoById(id, task)
-  .then(() => {
-    res.redirect('/')
-  })
+    .then(() => {
+      res.redirect('/')
+    })
 })
 
 app.listen(3000, () => console.log('listening on port 3000'))

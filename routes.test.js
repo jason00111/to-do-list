@@ -12,23 +12,23 @@ const agent = chai.request.agent(app)
 describe('if the user is not logged in', () => {
   it('the homepage works', done => {
     chai.request(app)
-    .get('/')
-    .end((err, res) => {
-      expect(res).to.have.status(200)
-      expect(res).to.redirectTo('http://' + res.request.host + '/login')
-      done()
-    })
+      .get('/')
+      .end((err, res) => {
+        expect(res).to.have.status(200)
+        expect(res).to.redirectTo('http://' + res.request.host + '/login')
+        done()
+      })
   })
 
   it('user can log in', done => {
     chai.request(app)
-    .post('/login')
-    .send({ username: 'aaron', password: 'aaron' })
-    .end((err, res) => {
-      expect(res).to.have.status(200)
-      expect(res).to.be.html
-      done()
-    })
+      .post('/login')
+      .send({ username: 'aaron', password: 'aaron' })
+      .end((err, res) => {
+        expect(res).to.have.status(200)
+        expect(res).to.be.html
+        done()
+      })
   })
 })
 
@@ -45,7 +45,7 @@ describe('if the user is logged in', () => {
             expect(res).to.be.html
             expect(res).to.not.redirect
             done()
-        })
+          })
       })
   })
 
@@ -65,13 +65,13 @@ describe('if the user is logged in', () => {
                 expect(res).to.have.status(200)
                 expect(res).to.redirectTo('http://' + res.request.host + '/login')
                 done()
-            })
-        })
+              })
+          })
       })
   })
 })
 
-describe.only('database', () => {
+describe('database', () => {
   it('/addToDo route works', done => {
     agent
       .post('/login')

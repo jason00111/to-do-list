@@ -49,10 +49,10 @@ When working on this goal, you'll encounter questions like:
 ## Specifications
 
 #### General
-- [ ] Code uses a linter and there are no linting errors.
-- [x] Repository includes a README file with basic installation and setup.
+- [X] Code uses a linter and there are no linting errors.
+- [X] Repository includes a README file with basic installation and setup.
 - [X] All dependencies are properly declared in `package.json`.
-- [ ] All major features are added via pull requests with a clear description and concise commit messages.
+- [X] All major features are added via pull requests with a clear description and concise commit messages.
 - [X] Every pull request has been reviewed by at least one other person.
 - [X] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
 
